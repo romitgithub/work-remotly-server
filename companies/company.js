@@ -5,7 +5,8 @@ var companySchema = new mongoose.Schema({
 	location: String,
 	country: String,
 	logo: String,
-	careersPage: String
+	careersPage: String,
+	timestamp: String
 })
 
 mongoose.model('Company', companySchema, 'companies');

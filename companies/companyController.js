@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 var Company = require('./Company');
 
-var limit = 10;
+var limit = 12;
 
 //inserts a new company info
 
@@ -20,7 +20,8 @@ router.post('/', function(req, res){
 		location: req.body.location,
 		country: req.body.country,
 		logo: req.body.logo,
-		careersPage: req.body.careersPage
+		careersPage: req.body.careersPage,
+		timestamp: Date.now()
 	});
 
 	company.save(function(err, data){
@@ -37,7 +38,7 @@ router.get('/', function(req, res){
 	Company.find({}, {}, {skip: (page - 1) * limit, limit: limit, sort: ['name']}, function(err, data){
 		if(err)
 			res.status(500).send("Internal server error");
-		res.status(200).send(data);
+		res.status(200).send({list: data, currentPage: page});
 	})
 })
 
@@ -51,28 +52,26 @@ router.post('/scrape', function(req, res){
 
         // First we'll check to make sure no errors occurred when making the request
 
-        if(error)
-        	res.status(500).send("Internal server error");
-        else {
-        	// Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+	        if(error)
+	        	res.status(500).send("Internal server error");
+	        else {
+	        	// Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
 
-            var $ = cheerio.load(html);
+	            var $ = cheerio.load(html);
 
-            // Finally, we'll define the variables we're going to capture
+	            // Finally, we'll define the variables we're going to capture
 
-            var name, website, logo, location, country, careersPage;
-            var json = { name : "", website : "", logo : "", location: "", country: "", careersPage: ""};
+	            var name, website, logo, location, country, careersPage;
+	            var json = { name : "", website : "", logo : "", location: "", country: "", careersPage: ""};
 
-            json.name = $('title').text();
-            json.website = url;
-            json.logo = 
+	            json.name = $('title').text();
+	            json.website = url;
+	            json.logo = 
 
-            res.status(200).send(json);
-        }
-    })
-
+	            res.status(200).send(json);
+	        }
+	    })
 	}
-
 })
 
 module.exports = router;
