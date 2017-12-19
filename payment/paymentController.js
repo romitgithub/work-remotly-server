@@ -24,11 +24,10 @@ router.post('/', function(req, res){
 
 	request.post('https://www.instamojo.com/api/1.1/payment-requests/', {form: payload,  headers: headers}, function(error, response, body){
 	  if(!error && response.statusCode == 201){
-	    console.log(body);
 	    res.status(200).send({ data: body});
 	  }
 	  else{
-	  	res.status(500).send({ success: false});
+	    res.status(500).send({ success: false});
 	  }
 	})
 });

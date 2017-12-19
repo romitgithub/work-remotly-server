@@ -6,7 +6,7 @@ var cheerio = require('cheerio');
 var router = express.Router();
 router.use(bodyParser.urlencoded({extended: true}));
 
-var Company = require('./Company');
+//var Company = require('./Company');
 
 var limit = 12;
 
@@ -14,21 +14,21 @@ var limit = 12;
 
 router.post('/', function(req, res){
 
-	var company = new Company({
-		name: req.body.name,
-		website: req.body.website,
-		location: req.body.location,
-		country: req.body.country,
-		logo: req.body.logo,
-		careersPage: req.body.careersPage,
-		timestamp: Date.now()
-	});
+//	var company = new Company({
+//		name: req.body.name,
+//		website: req.body.website,
+//		location: req.body.location,
+//		country: req.body.country,
+//		logo: req.body.logo,
+//		careersPage: req.body.careersPage,
+//		timestamp: Date.now()
+//	});
 
-	company.save(function(err, data){
-		if(err)
-			res.status(500).send("Internal server error");
-		res.status(200).send(data);
-	})
+//	company.save(function(err, data){
+//		if(err)
+//			res.status(500).send("Internal server error");
+//		res.status(200).send(data);
+//	})
 })
 
 router.get('/', function(req, res){
