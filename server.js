@@ -14,8 +14,8 @@ var credentials = {key: privateKey, cert: certificate};
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(port);
-httpsServer.listen(443);
+//httpServer.listen(port);
+httpsServer.listen(8000);
 
 // var server = app.listen(port, function(){
 // 	console.log('Express server listening on port ' + port);
